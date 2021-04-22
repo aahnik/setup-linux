@@ -1,0 +1,13 @@
+cd ~
+git clone https://github.com/aahnik/setup-linux.git && cd setup-linux
+
+./install
+./gh-ssh
+
+https://medium.com/@shivam1/make-your-terminal-beautiful-and-fast-with-zsh-shell-and-powerlevel10k-6484461c6efb
+
+dconf load / < .saved_settings.dconf
+
+dot config --local status.showUntrackedFiles no
+
+dot push --set-upstream origin main

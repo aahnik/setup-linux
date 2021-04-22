@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Naviagate to home
+cd ~
+
+# Prevent any recursive jhamela
+echo ".dot" >> .gitignore
+
+# Confirm
+echo " Do you have git installed and SSH set? " ; read
+
+# Clone the repo
+git clone --bare git@github.com:aahnik/dotfiles.git $HOME/.dot
+
+# Try checking out, if fails: wait until user backs up default files
+/usr/bin/git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout -p

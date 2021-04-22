@@ -1,0 +1,52 @@
+#!/bin/bash
+
+cd ~
+
+curl https://getmic.ro | bash
+
+sudo apt-get update && sudo apt-get upgrade -y
+sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt update
+sudo apt install $(cat apts.txt) -qq
+
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
+
+sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+
+
+wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+sudo add-apt-repository 'deb https://typora.io/linux ./'
+sudo apt-get update
+sudo apt-get install typora
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.github.maoschanz.DynamicWallpaperEditor
+
+sudo snap install $(cat snaps.txt)
+
+sudo snap install code --classic
+sudo snap install shotcut --classic
+sudo snap install sublime-text --classic
+sudo snap install espanso --classic
+sudo snap install pypy3 --clasic
+
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+
+brew install $(cat brews.sh)
+
+sudo apt-get install gnupg1 apt-transport-https dirmngr
+export INSTALL_KEY=379CE192D401AB61
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $INSTALL_KEY
+echo "deb https://ookla.bintray.com/debian generic main" | sudo tee  /etc/apt/sources.list.d/speedtest.list
+sudo apt-get update
+sudo apt-get install speedtest
+

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Generate key
+echo "Setup GitHub SSH ?"; read; clear
+
+ssh-keygen -f ~/.ssh/github_aahnik -t rsa -b 4096 -C "aahnikdaw@gmail.com" 
+
+# SSH Agent Confirmation
+echo; echo
+eval "$(ssh-agent -s)"
+
+echo "Was agent pid displayed successfully? "; read; clear
+
+
+# Add key to agent
+ssh-add ~/.ssh/github_aahnik && echo "Added to SSH Agent"
+
+# Confirm xclip
+echo "Is xclip installed ? Will copy key to clipboard"
+apt list xclip
+read; clear
+
+# Copy to clipboard, so that user can paste and add to GitHub
+xclip -selection clipboard ~/.ssh/github_aahnik.pub && echo "Copied! Go and paste"
+echo
+
+# Test connection
+echo "Test connection? ENTER after you have added key to your GitHub Account"
+read; clear
+
+ssh -T git@github.com
