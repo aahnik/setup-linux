@@ -50,3 +50,7 @@ echo "deb https://ookla.bintray.com/debian generic main" | sudo tee  /etc/apt/so
 sudo apt-get update
 sudo apt-get install speedtest
 
+sudo add-apt-repository ppa:appimagelauncher-team/stable && sudo apt update
+sudo apt install appimagelauncher
+
+
